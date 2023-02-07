@@ -1,7 +1,7 @@
 # All the things for the Climate Exhibit
 
 ## Building Models
-1. Modelling the change in the layer of ocean height. [x]
+1. Modelling the change in the layer of ocean height. --Done!
 2. Getting numerical values for the parameters. 
 3. Building the CO $_2$ temperature model.
 
