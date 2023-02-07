@@ -1,0 +1,108 @@
+\usepackage{subfiles}
+\usepackage[backend = biber,style=numeric ,natbib=true,bibencoding=utf8,sorting = none,hyperref = true,backref = true,backrefstyle = three]{biblatex}
+\usepackage{theorem}
+\usepackage{subcaption}
+\usepackage[nointegrals]{wasysym}
+\usepackage{multicol}
+\usepackage[draft]{graphicx}
+\usepackage{framed}     
+\usepackage{dsfont}
+
+\newtheorem{theorem}{Statement}
+
+%% Isolate this
+% \usepackage{fontspec}
+
+
+
+\usepackage{layout}
+\usepackage[notref, notcite]{showkeys}
+\usepackage[centering, width = 175mm,height = 235mm]{geometry}
+\usepackage{amsmath,amssymb,enumitem}
+
+\usepackage{pifont}
+
+\usepackage{hyperref}
+\usepackage{tikz-feynman}
+\usepackage{cancel}
+
+%%Isolate this
+% \setmainfont{'Constantia'}
+
+
+\usepackage{scrlayer-scrpage}
+\usepackage[none]{hyphenat}
+% \usepackage[dvipsnames]{xcolor}
+\usepackage{mathrsfs}
+%% To-do list.
+\newlist{todolist}{itemize}{2}
+\setlist[todolist]{label=$\square$}
+\newcommand{\cmark}{\ding{51}}
+\newcommand{\xmark}{\ding{55}}
+\newcommand{\done}{\rlap{$\square$}{\raisebox{2pt}{\large\hspace{1pt}\cmark}}%
+\hspace{-2.5pt}}
+\newcommand{\wontfix}{\rlap{$\square$}{\large\hspace{1pt}\xmark}}
+%% To-do list.
+
+
+\newcommand{\Dp}[3]{\frac{\partial^{#3} #1}{\partial #2^{#3}}}
+\newcommand{\on}[3]{\mathcal{O}_1(#1)\mathcal{O}_2(#2)\cdots\mathcal{O}_n(#3)}
+\newcommand{\varL}{\mathscr{ L}}
+\newcommand{\varH}{\mathscr{H}}
+\newcommand{\varI}{\mathscr{I}}
+\newcommand{\I}{\mathcal{I}}
+\newcommand{\dk}[2]{\frac{d^{#2} #1}{(2\pi)^{#2}}}
+\newcommand{\bra}[1]{\left<#1\right|}
+\newcommand{\ket}[1]{\left|#1\right>}
+\newcommand{\braket}[2]{\left<#1| #2\right>}
+\newcommand{\4}{^{(4)}}
+\newcommand{\V}{\mathcal{V}}
+\newcommand{\U}{\mathcal{U}}
+\newcommand{\phn}[3]{\phi(#1)\phi(#2)\cdots\phi(#3)}
+\newcommand{\mc}[1]{\mathcal{#1}}
+\newcommand{\ms}[1]{\mathscr{#1}}
+\newcommand{\md}[1]{\mathds{#1}}
+\newcommand{\mb}[1]{\mathbb{#1}}
+\newcommand{\tx}[1]{\mbox{#1}}
+\newcommand{\mtx}[1]{\scriptstyle #1 \textstyle}
+\newcommand{\ttx}[1]{\scriptscriptstyle #1 \textstyle}
+\newcommand{\eqn}{equation}
+\newcommand{\soln}{solution}
+\newcommand{\Dpc}[3]{\frac{\cancel{\partial}^{#3}#1}{\cancel{\partial} #2^{#3}}}
+
+
+
+
+
+% \renewcommand{\chaptername}{} %% Isolate this
+
+
+\renewcommand{\d}[3]{\frac{d^{#3} #1}{d #2^{#3}}}
+\renewcommand{\L}{\mathcal{L}}
+\renewcommand{\H}{\mathcal{H}}
+\renewcommand{\O}{\mathcal{O}}
+\renewcommand{\t}[1]{\tilde{#1}}
+\renewcommand{\vec}{\boldsymbol}
+\newcommand{\bf}[1]{\textbf{#1}}
+\renewcommand{\implies}{\Rightarrow} 
+\renewcommand{\div}[1]{\vec{\nabla} . \vec{#1}}
+\newcommand{\curl}[1]{\vec{\nabla} \times \vec{#1}}
+\newcommand{\grad}[1]{\vec{\nabla}#1}
+
+
+\DeclareMathOperator{\sech}{sech}
+\DeclareMathOperator{\cosech}{cosech}
+\DeclareMathOperator{\arcsec}{arcsec}
+\DeclareMathOperator{\arccot}{arcCot}
+\DeclareMathOperator{\arccsc}{arcCsc}
+\DeclareMathOperator{\arccosh}{arcCosh}
+\DeclareMathOperator{\arcsinh}{arcsinh}
+\DeclareMathOperator{\arctanh}{arctanh}
+\DeclareMathOperator{\arcsech}{arcsech}
+\DeclareMathOperator{\arccsch}{arcCsch}
+\DeclareMathOperator{\arccoth}{arcCoth}
+\DeclareMathOperator{\Tr}{Tr}
+
+\definecolor{shadecolor}{HTML}{b2b2b2}
+\setuptoc{toc}{totoc}
+\setuptoc{bibliography}{totoc}
