@@ -1,0 +1,93 @@
+\documentclass[fontsize = 13pt]{scrartcl}
+\include{r_preamble.tex}
+\usepackage{fontenc} %Delete if lualatex
+\color[HTML]{000000}
+\title{Modelling Sea--Level Rise}
+\author{Rajarshi}
+\date{\today}
+\begin{document}
+% \pagecolor[HTML]{e0d7eb}
+\maketitle
+\tableofcontents
+\pagebreak
+\section{Introduction}
+If we change the surface temperature of the earth, oceans take millennia to respond. However, it is not a bad assumption that the top layer of the ocean equilibrates quickly and below the top layer, the temperature is constant in a decadal timescale.
+
+Thus, given a surface temperature, we know the temperature profile in equilibrium in this top layer. We will try to write a model for the height of this top layer as a function of the surface temperature. 
+
+\section{Equations}
+On a global scale, we will assume that the top layer of the ocean is in hydrostatic balance i.e.
+\begin{align}
+% \label{}
+\begin{split}
+    \d{p}{z}{} = - \rho g \ .
+\end{split}
+\end{align}
+\section{The Base state}
+In real life, the base state has a non-zero temperature gradient and a non-uniform density profile. Also, the height of the top layer will depend on the melting polar ice. 
+However, we shall assume that the density of the base state is uniform (\(\rho_0\)) and the temperature at the top is the same as at the bottom. The height of the base state is assumed to be \(D\).
+\section{Boundary Conditions}
+The boundary conditions are imposed on pressure. The difference in pressure between the top and the bottom of the layer will be equal to the total mass content per unit area in the layer i.e 
+\begin{align}
+% \label{}
+\begin{split}
+    p(0) - p(h) = \rho_0\,g\,D \ .
+\end{split}
+\end{align}
+If the melting of polar ice is included, the RHS of the equation will have an additional term.
+\section{Getting the height}
+If \(T_s\) and \(T_{\tx{sea}}\) are the temperature at the top and the bottom of the ocean layer, the equilibrium temperature profile will be
+\begin{align}
+% \label{}
+\begin{split}
+    T(z) = T_s + \left( T_s - T_{\tx{sea}} \right)\frac{z -h}{h} \ .
+\end{split}
+\end{align}
+Thus, the difference in temperature will be 
+\begin{align}
+% \label{}
+\begin{split}
+    \Delta T (z) = \left( T_s - T_{\tx{sea}} \right)\frac{z}{h} \ .
+\end{split}
+\end{align}
+The change in density for small changes in absolute temperature can be written as
+\begin{align}
+% \label{}
+\begin{split}
+    \rho(z) = \rho_0 \left( 1 -\alpha \Delta T(z) \right) \ ,
+\end{split}
+\end{align}
+where \(\alpha\) is the coefficient of thermal expansion for ocean water. Thus from the boundary conditions of pressure, we get
+\begin{align}
+% \label{}
+\begin{split}
+    p(0) - p(h) =    \rho_0\,g\,D  = \int\limits_{h}^{0} dz\  \rho_z g  \ . 
+\end{split}
+\end{align}
+Using all the above equations we get
+\begin{align}
+% \label{}
+\begin{split}
+    D = h - \alpha \left( T_s - T_{\tx{sea}} \right)\frac{h}{2} \ .
+\end{split}
+\end{align}
+Thus, 
+\begin{align}
+% \label{}
+\begin{split}
+    h = \frac{D}{1 - \frac{\alpha}{2} \left( T_s{} - T_{\tx{sea}} \right)} \ .
+\end{split}
+\end{align}
+
+\section{Needed numerical values}
+\begin{enumerate}
+    \item Thermal coefficient of expansion \(\alpha\).
+    \item The depth of the top layer \(D\).
+    \item The default density of the ocean.
+\end{enumerate}
+\section{Possible Corrections}
+\begin{enumerate}
+    \item Add a base density profile.
+    \item Add melting of ice.
+\end{enumerate}
+\end{document}
