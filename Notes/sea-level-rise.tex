@@ -61,7 +61,7 @@ where \(\alpha\) is the coefficient of thermal expansion for ocean water. Thus f
 \begin{align}
 % \label{}
 \begin{split}
-    p(0) - p(h) =    \rho_0\,g\,D  = \int\limits_{h}^{0} dz\  \rho_z g  \ . 
+    p(0) - p(h) =    \rho_0\,g\,D  = \int\limits_{0}^{h} dz\  \rho(z) g  \ . 
 \end{split}
 \end{align}
 Using all the above equations we get
@@ -75,17 +75,31 @@ Thus,
 \begin{align}
 % \label{}
 \begin{split}
-    h = \frac{D}{1 - \frac{\alpha}{2} \left( T_s{} - T_{\tx{sea}} \right)} \ .
+    h = \frac{D}{1 - \frac{\alpha}{2} \left( T_s - T_{\tx{sea}} \right)} \ .
 \end{split}
 \end{align}
-
+For small \(\alpha\), and temperature difference, we can expand the denominator and write
+\begin{align}
+% \label{}
+\begin{split}
+    h = D\left[ 1 +   \frac{\alpha}{2} \left( T_s - T_{\tx{sea}} \right)\right] \ .
+\end{split}
+\end{align}
+Thus, if for two different surface temperature $T_{s_1}$ and $T_{s_2}$ the height of the mixed layer is $h_1$ and $h_2$ respectively, then 
+\begin{align}
+% \label{}
+\begin{split}
+    h_2 - h_1 = \frac{\alpha}{2} \left( T_{s_2} -  T_{s_1} \right) \ .
+\end{split}
+\end{align}
 \section{Needed numerical values}
 \begin{enumerate}
     \item Thermal coefficient of expansion \(\alpha\) and density of the ocean
       \ref{Valis}\\
-        \(\alpha = 1.65 \times 10^{-4}\tx{ K}^{-1}\) , \(\rho_0 =  1027 \tx{ kg m}^{-3}\)
+        \(\alpha = 1.65 \times 10^{-4}\tx{ K}^{-1}\) , \(\rho_0 =  1027 \tx{ kg m}^{-3}\).
     \item The depth of the top layer \(D\).
     \item The default density of the ocean.
+    \item The deep sea temperature \(T_{\tx{sea}}\).
 \end{enumerate}
 \section{Possible Corrections}
 \begin{enumerate}
