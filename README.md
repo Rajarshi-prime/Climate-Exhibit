@@ -17,4 +17,3 @@
     * India - http://berkeleyearth.lbl.gov/auto/Regional/TAVG/Text/india-TAVG-Trend.tx
     
 3. The Book.
-
