@@ -5,13 +5,15 @@ import pandas as pd
 import json
 from scipy.interpolate import interp1d
 from time import sleep
+import matplotlib.pyplot as plt
+
 
 curr_path = pathlib.Path(__file__).parent
 files = [curr_path/x for x in os.listdir(path= curr_path) if ".txt" in x]
 flt = np.vectorize(float)
 # print(files)
 
-
+# -jsfakjsdf*(}lk4*(48)
 
 data = [0.]*len(files)
 keys = [0.]*len(files)
@@ -83,13 +85,15 @@ fSL = interp1d(SeaLevel["yearFrac"].to_numpy(),SeaLevel["smoothed (60-day Gaussi
 times = np.linspace(1995,2022,1000)
 
 CO2_data = fCO2(times)
-Temp_data = ftemp(times)
+# Temp_data = ftemp(times)
 SeaLevel_data = fSL(times)
 
 """Building Extrapolation models"""
 """First, the interpolation ones"""
-co2Temp_Interp = interp1d(CO2_data,Temp_data)
-TempSL_Interp = interp1d(Temp_data,SeaLevel_data)
+# co2Temp_Interp = interp1d(CO2_data,Temp_data)
+# TempSL_Interp = interp1d(Temp_data,SeaLevel_data)
+# co2Temp_Interp = interp1d(CO2_data,Temp_data)
+CO2SL_Interp = interp1d(CO2_data,SeaLevel_data)
 
 def extrap1d(interpolator):
     xs = interpolator.x
@@ -108,10 +112,31 @@ def extrap1d(interpolator):
 
     return ufunclike
 
-co2_Temp = extrap1d(co2Temp_Interp)
-Temp_SL = extrap1d(TempSL_Interp)
-
+# co2_Temp = extrap1d(co2Temp_Interp)
+# Temp_SL = extrap1d(TempSL_Interp)
+co2_sl = extrap1d(CO2SL_Interp)
 def CO2_SL(co2):
-    temp = co2_Temp(co2)
-    return Temp_SL(temp)
-print(co2_Temp([700]))
+    # temp = co2_Temp(co2)
+    # return Temp_SL(temp)
+    return co2_sl(co2)
+
+
+CO2SL_coeff = np.polyfit(CO2_data,SeaLevel_data,deg =1)
+# print(CO2SL_polyfit)
+def CO2_SL(co2):
+    # temp = co2_Temp(co2)
+    # return Temp_SL(temp)
+    return CO2SL_coeff[0] * co2 + CO2SL_coeff[1]
+co2_test = np.linspace(340,450,1000)
+SeaLevel_test = CO2_SL(co2_test)
+plt.figure(figsize=(10,10))
+plt.plot(CO2_data,SeaLevel_data,'.',ms = 2,label = "actual data")
+plt.plot(co2_test,SeaLevel_test,'.',ms = 2,label = "extrapolated_data")
+# plt.xticks(fontsize = )
+# plt.yticks(fontsize = )
+# plt.xlabel()
+# plt.ylabel()
+plt.legend()
+# plt.title()
+# ${14:plt.savefig()
+plt.show()
