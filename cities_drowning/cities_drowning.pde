@@ -2,11 +2,7 @@ float popmax = 0.01*width;
 float notsub;
 color c1 = #fcbf49;
 color c2 = #e63946;
-<<<<<<< HEAD
 int ncities = 5;
-=======
-int ncities = 6;
->>>>>>> 0e0ed072d0774629e6efd3ba9a7a0e93bf9d6c53
 float sHeight = 0.1;
 float theta  = PI*height/(6*width);
 float popChange = 0.0 ;
@@ -19,15 +15,10 @@ void setup(){
   frameRate(120);
   sea(sHeight);
   cities = new city[ncities];
-<<<<<<< HEAD
   String [] cnames = loadStrings("./data/cities.txt");
   for (int i=0;i<ncities;++i){
   
     cities[i] = new city(random(0.7)+ sHeight ,  random(popmax),cnames[i]);
-=======
-  for (int i=0;i<ncities;++i){
-    cities[i] = new city(random(0.7)+ sHeight ,  random(popmax));
->>>>>>> 0e0ed072d0774629e6efd3ba9a7a0e93bf9d6c53
     cities[i].show();
   }
   
