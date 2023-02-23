@@ -4,7 +4,7 @@ color c1 = #fcbf49;
 color c2 = #e63946;
 int ncities = 5;
 float sHeight = 0.1;
-float theta  = PI*height/(6*width);
+float theta;
 float popChange = 0.0 ;
 float [] phase = new float[500];
 
@@ -15,10 +15,11 @@ void setup(){
   frameRate(120);
   sea(sHeight);
   cities = new city[ncities];
+  theta = = PI*height/(6*width);
   String [] cnames = loadStrings("./data/cities.txt");
   for (int i=0;i<ncities;++i){
   
-    cities[i] = new city(random(0.7)+ sHeight ,  random(popmax),cnames[i]);
+    cities[i] = new city(random(0.7)+ sHeight ,   random(0.3*popmax, popmax),cnames[i]);
     cities[i].show();
   }
   

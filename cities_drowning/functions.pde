@@ -21,10 +21,10 @@ void sea(float h){
   while(ht<h) {
     beginShape();
     for(int i=0; i<N; ++i)
-      curveVertex( -50 + i*(width*1.25)/N, sin( xvec[i] + frameCount*0.005 + phase[cc])*waveamp+ (1-ht)*height );
+      curveVertex( -50 + i*(width*1.25)/N, sin( xvec[i] + frameCount*0.013 + phase[cc])*waveamp+ (1-ht)*height );
     curveVertex( width*1.2, height*1.5 );
     curveVertex( -100, height*1.5 );
-    curveVertex( -100, sin( xvec[0] + frameCount*0.005 + phase[cc])*waveamp+ (1-ht)*height );
+    curveVertex( -100, sin( xvec[0] + frameCount*0.013 + phase[cc])*waveamp+ (1-ht)*height );
     endShape();
     ht += 5.0/height;
     cc++;
@@ -61,14 +61,14 @@ class city{
     fill(cc);
     noStroke();
     // println(pop0,pop);
-    circle(loc.x ,loc.y,size*(1 + 0.08*sin(frameCount*0.03 * pow(pop/pop0,3)))); 
+    circle(loc.x ,loc.y,size + size0*0.08*sin(frameCount*0.03 * pow(pop/pop0,4))); 
     
     noFill();
     strokeWeight(1);
     stroke(0);
     circle( loc.x, loc.y, size0 );
     
-    float txtsize = 0.05*width/4;
+    float txtsize = 0.08*width/4;
     fill(10);
     textSize(txtsize);
     text(name,loc.x+size0/2*1.5, loc.y+txtsize/2);
