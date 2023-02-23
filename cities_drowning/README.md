@@ -1,7 +1,6 @@
 
 # Lists of things to be done
 
-
 - [ ] Stopping the overlap between the cities.
 - [ ] Will we use the actual height data.
 - [ ] Tweaking the oscillations.
