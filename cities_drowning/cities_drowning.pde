@@ -15,7 +15,7 @@ void setup(){
   frameRate(120);
   sea(sHeight);
   cities = new city[ncities];
-  theta = = PI*height/(6*width);
+  theta = PI*height/(6*width);
   String [] cnames = loadStrings("./data/cities.txt");
   for (int i=0;i<ncities;++i){
   
