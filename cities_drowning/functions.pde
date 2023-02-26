@@ -42,14 +42,16 @@ class city{
   String name;
   int sub; // -1 -> no! 0 -> currently submerging. 1 -> yes .
   
-  city(float h1,float pop1,String name1){
+  city(float h1,float i, float pop1,String name1){
     h = h1;
     name = name1;
     pop = pop1;
     pop0 = pop;
     float y = 1-h;
-    float x = tan(theta)*y + 0.05 + randomGaussian()*0.24;
-    loc = new PVector (x*width,y*height);
+    // float x = tan(theta)*y + 0.05 + randomGaussian()*0.24;
+    float x =0.05*width+  random(colwidth*i, colwidth*(i+1));
+    println(x/width);
+    loc = new PVector (x,y*height);
     size = 2*(0.01 + 0.04*pop/popmax)*width  ;
     size0 = size;
     cc = lerpColor(c1,c2,pop/popmax); 

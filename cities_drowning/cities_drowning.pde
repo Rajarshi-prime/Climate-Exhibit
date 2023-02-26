@@ -7,6 +7,7 @@ float sHeight = 0.1;
 float theta;
 float popChange = 0.0 ;
 float [] phase = new float[500];
+float colwidth;
 
 city [] cities;
 void setup(){
@@ -14,12 +15,13 @@ void setup(){
   background(255);
   frameRate(120);
   sea(sHeight);
+  colwidth = int(0.9*width/ncities);
   cities = new city[ncities];
   theta = PI*height/(6*width);
   String [] cnames = loadStrings("./data/cities.txt");
   for (int i=0;i<ncities;++i){
   
-    cities[i] = new city(random(0.7)+ sHeight ,   random(0.3*popmax, popmax),cnames[i]);
+    cities[i] = new city(random(0.7)+ sHeight , i,random(0.3*popmax, popmax),cnames[i]);
     cities[i].show();
   }
   
