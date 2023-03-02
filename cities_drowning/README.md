@@ -9,7 +9,8 @@
 
 - [ ] Placing a large city near the sea to start with.
 - [x] Making a reset button.
-- [ ] Giving a CO $_2$ slider. (?)
+- [x] Giving a CO $_2$ slider. (?)
 - [ ] Getting a better colour for the cities.
 - [ ] Tweaking the wave amplitudes.
+        
         - [ ] Make the sea return to the same height.

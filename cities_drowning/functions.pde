@@ -43,6 +43,89 @@ void resetbtn(){
   text("Reset",rstPosx*width+rstlen*width/2 - rstTxtsize, rstPosy*height+rstbreadth*height/1.5);
 }
 
+
+class HScrollbar {
+  float swidth, sheight;    // width and height of bar
+  float xpos, ypos;       // x and y position of bar
+  float spos, newspos;    // x position of slider
+  // float sposMin, sposMax; // max and min values of slider
+  int loose;              // how loose/heavy
+  boolean over;           // is the mouse over the slider?
+  boolean locked;
+  float ratio;
+
+  HScrollbar (float xp, float yp, float sw, float sh, int l) {
+    swidth = sw*width;
+    sheight = sh*height;
+    float widthtoheight = sw - sh;
+    ratio = (float)sw / (float)widthtoheight;
+    xpos = xp*width;
+    ypos = (yp*height-sheight/2);
+    spos = xpos;
+    newspos = spos;
+    sposMin = xpos;
+    sposMax = xpos + swidth - sheight;
+    loose = l;
+  }
+
+  void update() {
+    if (overEvent()) {
+      over = true;
+    } else {
+      over = false;
+    }
+    if (firstMousePress && over) {
+      locked = true;
+    }
+    if (!mousePressed) {
+      locked = false;
+    }
+    if (locked) {
+      newspos = constrain(mouseX-sheight/2, sposMin, sposMax);
+    }
+    if (abs(newspos - spos) > 1) {
+      spos = spos + (newspos-spos)/loose;
+    }
+  }
+
+  float constrain(float val, float minv, float maxv) {
+    return min(max(val, minv), maxv);
+  }
+
+  boolean overEvent() {
+    if (mouseX > xpos && mouseX < xpos+swidth &&
+      mouseY > ypos && mouseY < ypos+sheight) {
+      return true;
+    } else {
+      return false;
+    }
+  }
+
+  void display() {
+    noStroke();
+    fill(204);
+    rect(xpos, ypos, swidth, sheight);
+    if (over || locked) {
+      fill(0, 0, 0);
+    } else {
+      fill(102, 102, 102);
+    }
+    ellipse(spos+sheight/2, ypos+sheight/2, sheight, sheight);
+  }
+  void reset(){
+    spos = xpos ;
+    newspos = spos;
+  }
+  float getPos() {
+    // Convert spos to be values between
+    // 0 and the total width of the scrollbar
+    return spos;
+  }
+}
+
+float Co2ToSheight(float co2){
+  return 1.622077566762639*co2 + -615.265192094049;
+}
 class city{
   PVector loc;
   float size, size0,pop,h,pop0;

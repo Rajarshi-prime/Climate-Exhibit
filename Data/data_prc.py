@@ -122,7 +122,7 @@ def CO2_SL(co2):
 
 
 CO2SL_coeff = np.polyfit(CO2_data,SeaLevel_data,deg =1)
-# print(CO2SL_polyfit)
+print(CO2SL_coeff[0] , CO2SL_coeff[1])
 def CO2_SL(co2):
     # temp = co2_Temp(co2)
     # return Temp_SL(temp)
