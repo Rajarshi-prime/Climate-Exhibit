@@ -11,34 +11,39 @@ float popChange = 0.0 ;
 float [] phase = new float[500];
 float colwidth;
 boolean reset = false;
-float rstPosx = 0.92;
+float rstlen = 0.1;
+float rstbreadth = 0.03;
+float rstTxtsize = 0.202*width;
+float rstPosx = 1 -1.2*rstlen ;
 float rstPosy = 0.05;
-float rstlen = 0.06;
-float rstbreadth = 0.02;
-float rstTxtsize = 0.152*width;
 boolean firstMousePress = false;
-float scrx = 0.08;
+float scrx = 0.05;
 float scry = rstPosy+ rstbreadth/2;
 float scrw = 0.2;
 float scrh = rstbreadth;
 float sposMin ;
 float sposMax ;
+float delay =20;
+float sHeightnew = sHeight;
 
 
 city [] cities;
 HScrollbar hs1;
+
 void setup(){
-  size(1200,900);
+  size(1500,1000);
   background(255);
-  frameRate(60);
+  frameRate(120);
   
   // float frameCount = frameCount*2;
+
   sea(sHeight);
   colwidth = int(0.9*width/ncities);
   cities = new city[ncities];
-  hs1 = new HScrollbar(scrx,scry, scrw, scrh, 16);
+  hs1 = new HScrollbar(scrx,scry, scrw, scrh, 1);
   theta = PI*height/(6*width);
-  String [] cnames = loadStrings("./data/cities.txt");
+  // String [] cnames = loadStrings("./data/cities.txt");
+  String [] cnames = {"City 1", "City 2", "City 3", "City 4", "City 5"};
   for (int i=0;i<ncities;++i){
   
     cities[i] = new city(random(0.7)+ sHeight , i,random(0.3*popmax, popmax),cnames[i]);
@@ -65,9 +70,13 @@ void draw(){
     }
 }
   hs1.update();
-  hs1.display();
-  sHeight = map(hs1.getPos(),sposMin, sposMax,sHeight0,sHeightmax);
-  println(hs1.getPos()/sposMin);
+  hs1.display();  
+  hs1.lbl();
+  sHeightnew = map(hs1.getPos(),sposMin, sposMax,sHeight0,sHeightmax);
+  if (abs(sHeightnew - sHeight) > sHeight0/100) {
+      sHeight = sHeight + (sHeightnew-sHeight)/delay;
+    }
+  // println(hs1.getPos()/sposMin);
   //sHeight = 0.5;
   for (int i=0;i<ncities;++i){
     cities[i].changePop();  

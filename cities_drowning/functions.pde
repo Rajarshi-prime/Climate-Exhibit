@@ -17,11 +17,13 @@ void sea(float h){
   fill(wcol,30);
   int cc=0;
   float waveamp = 0.02*width;
+  
   //strokeWeight(5);
   while(ht<h) {
+    float speed = frameCount*((0.01));//+random(0,0.013)));
     beginShape();
     for(int i=0; i<N; ++i)
-      curveVertex( -100 + i*(width*1.25)/N, sin( xvec[i] + frameCount*0.013 + phase[cc])*waveamp+ (1-ht)*height );
+      curveVertex( -100 + i*(width*1.25)/N, sin( xvec[i] + speed + phase[cc])*waveamp+ (1-ht)*height );
     curveVertex( width*1.2, height*1.5 );
     curveVertex( -100, height*1.5 );
     curveVertex( -100, sin( xvec[0] + frameCount*0.013 + phase[cc])*waveamp+ (1-ht)*height );
@@ -30,6 +32,13 @@ void sea(float h){
     cc++;
   }
   
+    float lblsize = 0.0202*width;
+    fill(10);
+    textSize(lblsize);
+    String txt = "SLR : " + nf(h - sHeight0,1,2);
+    text(txt,width - textWidth(txt)*1.5 , (1- h )*height-waveamp*1.1 );
+    textSize(lblsize*0.7);
+    text("mm", width - textWidth(txt)*0.5/0.7 , (1- h)*height -waveamp*1.1);
 }
 
 void resetbtn(){
@@ -67,13 +76,19 @@ class HScrollbar {
     sposMax = xpos + swidth - sheight;
     loose = l;
   }
-
+  void lbl()  {
+    float lblsize = 0.0202*width;
+    fill(10);
+    String tx1 = "CO\u2082";
+    String tx2 = nf(map(spos, sposMin,sposMax, 0,1),1,2) ;
+    textSize(lblsize);
+    text(tx1,xpos- textWidth(tx1)*1.1, ypos + sheight/1.25);
+    text(tx2 ,xpos +lblsize +swidth, ypos + sheight/1.25   );
+    textSize(lblsize*0.7);
+    text("ppm",xpos +lblsize +swidth + textWidth(tx2)*1.5, ypos + sheight/1.5   );
+  }
   void update() {
-    if (overEvent()) {
-      over = true;
-    } else {
-      over = false;
-    }
+    overEvent();
     if (firstMousePress && over) {
       locked = true;
     }
@@ -83,7 +98,7 @@ class HScrollbar {
     if (locked) {
       newspos = constrain(mouseX-sheight/2, sposMin, sposMax);
     }
-    if (abs(newspos - spos) > 1) {
+    if (abs(newspos - spos) > 0.1) {
       spos = spos + (newspos-spos)/loose;
     }
   }
@@ -92,25 +107,33 @@ class HScrollbar {
     return min(max(val, minv), maxv);
   }
 
-  boolean overEvent() {
-    if (mouseX > xpos && mouseX < xpos+swidth &&
+  void overEvent() {
+    // println(spos,mouseX,spos + sheight);
+    if (mouseX > spos && mouseX < spos+sheight &&
       mouseY > ypos && mouseY < ypos+sheight) {
-      return true;
+      over = true;
     } else {
-      return false;
+      over = false;
     }
   }
 
   void display() {
     noStroke();
     fill(204);
-    rect(xpos, ypos, swidth, sheight);
+    
+    rect(xpos+sheight/2, ypos+sheight/2 -  sheight/10, swidth-sheight, sheight/5);
+    // fill(204);
+    // ellipse(xpos+sheight/2, ypos+sheight/2, sheight,sheight);
+    // fill(204);
+    // ellipse(swidth-sheight/2, ypos+sheight/2, sheight);
     if (over || locked) {
       fill(0, 0, 0);
+      ellipse(spos+sheight/2, ypos+sheight/2, sheight*1.2  , sheight*1.2);
     } else {
       fill(102, 102, 102);
+      ellipse(spos+sheight/2, ypos+sheight/2, sheight*0.9,sheight*0.9);
     }
-    ellipse(spos+sheight/2, ypos+sheight/2, sheight, sheight);
+    
   }
   void reset(){
     spos = xpos ;
@@ -142,14 +165,14 @@ class city{
     float y = 1-h;
     // float x = tan(theta)*y + 0.05 + randomGaussian()*0.24;
     float x =0.05*width+  random(colwidth*i*1.1, 0.9*colwidth*(i+1));
-    println(x/width);
+    // println(x/width);
     loc = new PVector (x,y*height);
     size = 2*(0.01 + 0.04*pop/popmax)*width  ;
     size0 = size;
     cc = lerpColor(c1,c2,pop/popmax); 
     sub = -1; 
-    println(name);
-    println(name.length()/2);
+    // println(name);
+    // println(name.length()/2);
   }
   
   void show(){
@@ -161,12 +184,12 @@ class city{
     // if (i == 3){
     // println(name,   sin(frameCount*0.03));
     // }
-    circle(loc.x ,loc.y,size + size0*0.08*sin(frameCount*0.03* pow(pop/pop0,4) )); 
+    ellipse(loc.x ,loc.y,size + size0*0.08*sin(frameCount*0.02* pow(pop/pop0,4) ),size + size0*0.08*sin(frameCount*0.02* pow(pop/pop0,4) )); 
     
     noFill();
     strokeWeight(1);
     stroke(0);
-    circle( loc.x, loc.y, size0 );
+    ellipse( loc.x, loc.y, size0,size0 );
     
     float txtsize = 0.08*width/4;
     
