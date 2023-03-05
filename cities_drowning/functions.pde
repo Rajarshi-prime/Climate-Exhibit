@@ -35,7 +35,7 @@ void sea(float h){
     float lblsize = 0.0202*width;
     fill(10);
     textSize(lblsize);
-    String txt = "SLR : " + nf(h - sHeight0,1,2);
+    String txt = "SLR : " + nf(map(h,sHeight0, sHeightmax,0,1000),4,1);
     text(txt,width - textWidth(txt)*1.5 , (1- h )*height-waveamp*1.1 );
     textSize(lblsize*0.7);
     text("mm", width - textWidth(txt)*0.5/0.7 , (1- h)*height -waveamp*1.1);
@@ -128,10 +128,10 @@ class HScrollbar {
     // ellipse(swidth-sheight/2, ypos+sheight/2, sheight);
     if (over || locked) {
       fill(0, 0, 0);
-      ellipse(spos+sheight/2, ypos+sheight/2, sheight*1.2  , sheight*1.2);
+      ellipse(spos+sheight/2, ypos+sheight/2, sheight*1.1*(0.75 + map(spos,sposMin, sposMax, 0.0,0.25))  , sheight*1.1*(0.75 + map(spos,sposMin, sposMax, 0.0,0.25)));
     } else {
       fill(102, 102, 102);
-      ellipse(spos+sheight/2, ypos+sheight/2, sheight*0.9,sheight*0.9);
+      ellipse(spos+sheight/2, ypos+sheight/2, sheight*0.85*(0.75 + map(spos,sposMin, sposMax, 0.0,0.25)),sheight*0.85*(0.75 + map(spos,sposMin, sposMax, 0.0,0.25)));
     }
     
   }
@@ -151,7 +151,7 @@ float Co2ToSheight(float co2){
 }
 class city{
   PVector loc;
-  float size, size0,pop,h,pop0;
+  float size, size0,pop,h,pop0,osc;
   color cc;
   String name;
   int i, sub; // -1 -> no! 0 -> currently submerging. 1 -> yes .
@@ -169,13 +169,15 @@ class city{
     loc = new PVector (x,y*height);
     size = 2*(0.01 + 0.04*pop/popmax)*width  ;
     size0 = size;
-    cc = lerpColor(c1,c2,pop/popmax); 
+    cc = lerpColor(c1,c2,constrain(pop/popmax,0,1)); 
     sub = -1; 
     // println(name);
     // println(name.length()/2);
   }
   
   void show(){
+    // if (pop/popmax > 1)
+		// println(pop/popmax);
     fill(cc);
     noStroke();
     // println(pop0,pop);
@@ -184,7 +186,8 @@ class city{
     // if (i == 3){
     // println(name,   sin(frameCount*0.03));
     // }
-    ellipse(loc.x ,loc.y,size + size0*0.08*sin(frameCount*0.02* pow(pop/pop0,4) ),size + size0*0.08*sin(frameCount*0.02* pow(pop/pop0,4) )); 
+    osc = size0*0.08*sin(frameCount*0.02* pow(pop/pop0,4) );
+    ellipse(loc.x ,loc.y,size + osc,size + osc); 
     
     noFill();
     strokeWeight(1);
@@ -195,7 +198,7 @@ class city{
     
     fill(10);
       textSize(txtsize);
-      text(name,loc.x -txtsize , loc.y-(txtsize/4 +size0/2*1.5));
+      text(name,loc.x -txtsize , loc.y-(txtsize/4 +size0/2*1.5)+sin(TWO_PI*frameCount/230)*textAscent()/10);
     }
   void changePop(){
     if (sHeight > h){
@@ -209,7 +212,7 @@ class city{
       popChange = popChange -  (ratio-1)*pop;
       // println(popChange);
       pop = pop*ratio;
-      cc =  lerpColor(c1,c2,pop/popmax);
+      cc =  lerpColor(c1,c2,constrain(pop/popmax,0,1));
       sub = 0;
       size = 2*(h-sHeight)*height;
     }else {
@@ -221,7 +224,7 @@ class city{
   void feedPop(){
    if (sub <0){
      pop = pop + popChange/(1.0*notsub);
-     cc =  lerpColor(c1,c2,pop/popmax);
+     cc =  lerpColor(c1,c2,constrain(pop/popmax,0,1));
      size = 2*(0.01 + 0.04*pop/popmax)*width;
      //println("Exists");     
    }    
@@ -231,7 +234,7 @@ class city{
       // print("YAY!!");
       size = size0;
       pop = pop0;
-      cc = lerpColor(c1,c2,pop/popmax);
+      cc = lerpColor(c1,c2,constrain(pop/popmax,0,1));
       sub = -1;
     }
   }

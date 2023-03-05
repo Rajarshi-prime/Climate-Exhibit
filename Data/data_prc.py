@@ -129,6 +129,8 @@ def CO2_SL(co2):
     return CO2SL_coeff[0] * co2 + CO2SL_coeff[1]
 co2_test = np.linspace(340,450,1000)
 SeaLevel_test = CO2_SL(co2_test)
+print(CO2_data[-1],CO2_SL(CO2_data[-1]))
+
 plt.figure(figsize=(10,10))
 plt.plot(CO2_data,SeaLevel_data,'.',ms = 2,label = "actual data")
 plt.plot(co2_test,SeaLevel_test,'.',ms = 2,label = "extrapolated_data")

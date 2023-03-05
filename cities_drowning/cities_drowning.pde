@@ -31,7 +31,7 @@ city [] cities;
 HScrollbar hs1;
 
 void setup(){
-  size(1500,1000);
+  size(1600,900);
   background(255);
   frameRate(120);
   
@@ -105,8 +105,8 @@ void mousePressed() {
 
 void mouseDragged() {
     //sHeight = 1- mouseY/(1.0*height);
-    if(mouseY>height*sHeightmax) 
-    sHeight = 1- mouseY/(1.0*height);
+    // if(mouseY>height*sHeightmax) 
+    // sHeight = 1- mouseY/(1.0*height);
     //sHeight =  map(1-mouseY/(1.0*height), 0, 1, 0, 0.4);
 } 
 void mouseClicked(){
