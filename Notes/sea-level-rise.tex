@@ -2,7 +2,7 @@
 \include{r_preamble.tex}
 \usepackage{fontenc} %Delete if lualatex
 \color[HTML]{000000}
-\title{Modelling Sea--Level Rise}
+\title{Modelling ocean--Level Rise}
 \author{Rajarshi}
 \date{\today}
 \begin{document}
@@ -27,7 +27,8 @@ On a global scale, we will assume that the top layer of the ocean is in hydrosta
 In real life, the base state has a non-zero temperature gradient and a non-uniform density profile. Also, the height of the top layer will depend on the melting polar ice. 
 However, we shall assume that the density of the base state is uniform (\(\rho_0\)) and the temperature at the top is the same as at the bottom. The height of the base state is assumed to be \(D\).
 \section{Boundary Conditions}
-The boundary conditions are imposed on pressure. The difference in pressure between the top and the bottom of the layer will be equal to the total mass content per unit area in the layer i.e 
+The boundary conditions are imposed on pressure. The pressure difference between the top and the bottom of the layer will be equal to the total mass
+per unit area in it i.e 
 \begin{align}
 % \label{}
 \begin{split}
@@ -36,18 +37,18 @@ The boundary conditions are imposed on pressure. The difference in pressure betw
 \end{align}
 If the melting of polar ice is included, the RHS of the equation will have an additional term.
 \section{Getting the height}
-If \(T_s\) and \(T_{\tx{sea}}\) are the temperature at the top and the bottom of the ocean layer, the equilibrium temperature profile will be
+If \(T_s\) and \(T_{\tx{ocean}}\) are the temperature at the top and the bottom of the ocean layer respectively, the equilibrium temperature profile will be
 \begin{align}
 % \label{}
 \begin{split}
-    T(z) = T_s + \left( T_s - T_{\tx{sea}} \right)\frac{z -h}{h} \ .
+    T(z) = T_s + \left( T_s - T_{\tx{ocean}} \right)\frac{z -h}{h} \ .
 \end{split}
 \end{align}
 Thus, the difference in temperature will be 
 \begin{align}
 % \label{}
 \begin{split}
-    \Delta T (z) = \left( T_s - T_{\tx{sea}} \right)\frac{z}{h} \ .
+    \Delta T (z) = \left( T_s - T_{\tx{ocean}} \right)\frac{z}{h} \ .
 \end{split}
 \end{align}
 The change in density for small changes in absolute temperature can be written as
@@ -57,35 +58,35 @@ The change in density for small changes in absolute temperature can be written a
     \rho(z) = \rho_0 \left( 1 -\alpha \Delta T(z) \right) \ ,
 \end{split}
 \end{align}
-where \(\alpha\) is the coefficient of thermal expansion for ocean water. Thus from the boundary conditions of pressure, we get
+where \(\alpha\) is the coefficient of thermal expansion for ocean water. Thus, from the boundary conditions of pressure, we get
 \begin{align}
 % \label{}
 \begin{split}
     p(0) - p(h) =    \rho_0\,g\,D  = \int\limits_{0}^{h} dz\  \rho(z) g  \ . 
 \end{split}
 \end{align}
-Using all the above equations we get
+Substituting $\rho(z)$ , $\Delta T(z)$ and integrating we arrive at
 \begin{align}
 % \label{}
 \begin{split}
-    D = h - \alpha \left( T_s - T_{\tx{sea}} \right)\frac{h}{2} \ .
+    D = h - \alpha \left( T_s - T_{\tx{ocean}} \right)\frac{h}{2} \ .
 \end{split}
 \end{align}
 Thus, 
 \begin{align}
 % \label{}
 \begin{split}
-    h = \frac{D}{1 - \frac{\alpha}{2} \left( T_s - T_{\tx{sea}} \right)} \ .
+    h = \frac{D}{1 - \frac{\alpha}{2} \left( T_s - T_{\tx{ocean}} \right)} \ .
 \end{split}
 \end{align}
-For small \(\alpha\), and temperature difference, we can expand the denominator and write
+For small \(\alpha \) and small temperature difference between the top and the bottom layer of the ocean, we can expand the denominator and write
 \begin{align}
 % \label{}
 \begin{split}
-    h = D\left[ 1 +   \frac{\alpha}{2} \left( T_s - T_{\tx{sea}} \right)\right] \ .
+    h = D\left[ 1 +   \frac{\alpha}{2} \left( T_s - T_{\tx{ocean}} \right)\right] \ .
 \end{split}
 \end{align}
-Thus, if for two different surface temperature $T_{s_1}$ and $T_{s_2}$ the height of the mixed layer is $h_1$ and $h_2$ respectively, then 
+If for two different surface temperatures $T_{s_1}$ and $T_{s_2}$, the height of the mixed layer is $h_1$ and $h_2$ respectively, then 
 \begin{align}
 % \label{}
 \begin{split}
@@ -94,16 +95,16 @@ Thus, if for two different surface temperature $T_{s_1}$ and $T_{s_2}$ the heigh
 \end{align}
 \section{Needed numerical values}
 \begin{enumerate}
-    \item Thermal coefficient of expansion \(\alpha\) and density of the ocean
-      \ref{Valis}\\
+    \item Thermal expansion coefficient \(\alpha\) and density $\rho_0$ of the ocean\\
         \(\alpha = 1.65 \times 10^{-4}\tx{ K}^{-1}\) , \(\rho_0 =  1027 \tx{ kg m}^{-3}\).
-    \item The depth of the top layer \(D\).
+    \item The depth of the top layer \(D \sim 50 -200 m\).
     \item The default density of the ocean.
-    \item The deep sea temperature \(T_{\tx{sea}}\).
+    \item The deep ocean temperature \(T_{\tx{ocean}}\).
 \end{enumerate}
 \section{Possible Corrections}
 \begin{enumerate}
     \item Add a base density profile.
     \item Add melting of ice.
 \end{enumerate}
+
 \end{document}
